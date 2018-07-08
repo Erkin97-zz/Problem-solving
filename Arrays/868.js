@@ -3,7 +3,6 @@
  * @return {number[][]}
  */
 var transpose = function(A) {
-  var lengthArray = A.length;
   var B = [];
   for (var i = 0; i < A[0].length; i++) {
     B[i] = [];
