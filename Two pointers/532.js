@@ -4,28 +4,30 @@
  * @return {number}
  */
 var findPairs = function(nums, k) {
-  var help_tbl = [];
+  if (k < 0) return 0; // exception
+  var used = [], exists = [];
   var ans = 0;
   for (var i = 0; i < nums.length; i++) {
-    var a = nums[i];
-    if (a >= k) {
-      if (help_tbl[a] != -1) {
-        var b = a - k;
-        if (help_tbl[b] != undefined) {
-          ans++;
-          help_tbl[a] = -1; 
-        }
-      }
-    } else {
-      var b = a + k;
-      if (help_tbl[b] != undefined && help_tbl[b] != -1) {
-        ans++;
-        help_tbl[b] = -1;
-      }
+    if (exists[nums[i]] == undefined) {
+      exists[nums[i]] = 1;
     }
-    if (help_tbl[a] != -1) {
-      help_tbl[a] = 1;
+    else {
+      exists[nums[i]]++;
+    }
+  }
+  for (var i = 0; i < nums.length; i++) {
+    if (used[nums[i]] != 1) {
+      exists[nums[i]]--;
+      if (exists[nums[i] + k] >= 1) {
+        ans++;
+      }
+      exists[nums[i]]++;
+      used[nums[i]] = 1;
     }
   }
   return ans;
 };
+
+var nums = [1,1,1,1,1];
+var k = 0;
+console.log(findPairs(nums, k));
