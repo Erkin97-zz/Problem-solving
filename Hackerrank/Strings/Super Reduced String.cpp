@@ -4,27 +4,23 @@ using namespace std;
 
 // Complete the superReducedString function below.
 string superReducedString(string s) {
-  cout << s << endl;
-  if (s.length() < 2) return s;
+  if (s == "")
+    return s;
 
-  bool f = true;
+  stack<char> st;
 
-  while (f) {
-    string s_new = "";
-    for (int i = 0; i < s.length(); i++) {
-      if (i != s.length() - 1 && s[i] == s[i + 1]) {
-        cout << "Hello same" << endl;
-        i++;
-      } else {
-        s_new += s[i];
-      }
-    }
-    cout << s << endl;
-    if (s_new == s) break;
-    s = s_new;
+  for (int i = 0; i < s.length(); i++) {
+    if (!st.empty() && st.top() == s[i]) {
+      st.pop();
+    } else
+      st.push(s[i]);
   }
-  cout << "Look at me " << s << endl;
-  return s;
+  string result = "";
+  while (!st.empty()) {
+    result = st.top() + result;
+    st.pop();
+  }
+  return result;
 }
 
 int main() {
@@ -32,50 +28,6 @@ int main() {
 
   string s;
   getline(cin, s);
-#include <bits/stdc++.h>
-
-using namespace std;
-
-  // Complete the superReducedString function below.
-  string superReducedString(string s) {
-    cout << s << endl;
-    if (s.length() < 2) return s;
-
-    bool f = true;
-
-    while (f) {
-      string s_new = "";
-      for (int i = 0; i < s.length(); i++) {
-        if (i != s.length() - 1 && s[i] == s[i + 1]) {
-          i++;
-        } else {
-          s_new += s[i];
-        }
-      }
-      if (s_new == s) break;
-      s = s_new;
-    }
-    return s;
-  }
-
-  int main() {
-    ofstream fout(getenv("OUTPUT_PATH"));
-
-    string s;
-    getline(cin, s);
-
-    string result = superReducedString(s);
-
-    if (result == "") {
-      result = "Empty String";
-    }
-
-    fout << result << "\n";
-
-    fout.close();
-
-    return 0;
-  }
 
   string result = superReducedString(s);
 
@@ -84,7 +36,6 @@ using namespace std;
   }
 
   fout << result << "\n";
-
   fout.close();
 
   return 0;
