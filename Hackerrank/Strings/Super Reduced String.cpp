@@ -4,8 +4,7 @@ using namespace std;
 
 // Complete the superReducedString function below.
 string superReducedString(string s) {
-  if (s == "")
-    return s;
+  if (s == "") return s;
 
   stack<char> st;
 
