@@ -3,20 +3,25 @@ class FooBar {
   int n;
 
  public:
-  mutex foo_mu;
-  FooBar(int n) { this->n = n; }
+  mutex foo_mu, bar_mu;
+  FooBar(int n) {
+    this->n = n;
+    foo_mu.lock();
+  }
 
   void foo(function<void()> printFoo) {
     for (int i = 0; i < n; i++) {
-      foo_mu.lock();
+      bar_mu.lock();
       printFoo();
+      foo_mu.unlock();
     }
   }
 
   void bar(function<void()> printBar) {
     for (int i = 0; i < n; i++) {
+      foo_mu.lock();
       printBar();
-      foo_mu.unlock();
+      bar_mu.unlock();
     }
   }
 };
